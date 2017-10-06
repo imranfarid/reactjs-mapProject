@@ -1,12 +1,32 @@
 import React, {Component} from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import Markerpoints from '../Components/Markers';
 
 const style = {
     width: '100%',
     height: '100%'
 }
 
-
+const data = {markerPoints: [{
+    "title": "The marker`s title will appear as a tooltip.",
+    "name":"SOMA",
+    "position":{"lat": 23.787844, "lng": 90.415269}
+},{
+    "title": "The marker`s title will appear as a tooltip.",
+    "name":"SOMA",
+    "position":{"lat": 23.789557, "lng": 90.416578}
+},
+{
+    "title": "The marker`s title will appear as a tooltip.",
+    "name":"SOMA",
+    "position":{"lat": 23.793730, "lng": 90.414196}
+},
+{
+    "title": "The marker`s title will appear as a tooltip.",
+    "name":"SOMA",
+    "position":{"lat": 23.793278, "lng": 90.412211}
+},
+]};
 
 export class MapContainer extends React.Component{
     constructor(props){
@@ -37,9 +57,6 @@ export class MapContainer extends React.Component{
         }
     }
 
-    
-
-    
     render(){
         return(
             <Map 
@@ -52,11 +69,12 @@ export class MapContainer extends React.Component{
             onClick={this.onMapClicked}
             zoom={15} 
             >
-                <Marker onClick={this.onMarkerClick} name={'Current Location'} />
-                <Marker
-    title={'The marker`s title will appear as a tooltip.'}
-    name={'SOMA'}
-    position={{lat: 23.787844, lng: 90.415269}} />
+                {
+                    data.markerPoints.map((x)=>(<Marker {...x} />))
+                }
+
+                <Markerpoints lat="23.789557" lng="90.416578" name="Some name" />
+                
                 <InfoWindow onClose={this.onInfoWindowClose}>
                     <div>
                         <h1>{this.state.selectedPlace.name}</h1>
